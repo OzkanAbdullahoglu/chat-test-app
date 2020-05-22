@@ -1,26 +1,24 @@
+/* eslint-disable linebreak-style */
 import React from 'react';
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 import './App.css';
+import MessageList from './components/MessageList/MessageList';
+import Header from './components/Header/Header';
+import useCurrentViewDims from './components/ViewPort';
 
-function App() {
+const App = () => {
+  const { height } = useCurrentViewDims();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Header incomingIcon={false} incomingAvatar={false} />
+        <Header incomingIcon incomingAvatar />
+        <MessageList windowHeight={height} />
+      </PersistGate>
+    </Provider>
   );
-}
+};
 
 export default App;
