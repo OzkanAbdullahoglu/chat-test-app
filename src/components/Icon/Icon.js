@@ -9,7 +9,7 @@ export const Icon = styled.svg`
   font-size: ${(props) => (props.incomingAvatar ? '1.5rem' : '1rem')};
   color: ${(props) => (props.incomingIcon ? '#00bcd4' : '#fff')};
   margin-right: ${(props) => (props.incomingIcon ? '0.1rem' : 0)};
-  position: ${(props) => (props.sendIcon ? 'fixed' : 'relative')};
+  position: ${(props) => (props.sendIcon ? 'absolute' : 'relative')};
   transform: ${(props) => (props.scrollDown ? 'rotate(-90deg)' : 0)};
   cursor: ${(props) => (props.sendIcon || props.scrollDown ? 'pointer' : 'auto')};
    ${Wrapper}:hover & {
