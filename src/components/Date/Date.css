@@ -1,0 +1,28 @@
+.list-item-date-root {
+    width: 100%;
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    text-align: left;
+    align-items: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    justify-content: center;
+    text-decoration: none;
+    padding: 4px 16px;
+    margin-top: 14px;
+    margin-bottom: 4px; 
+}
+
+.list-item-date-text-primary {
+     background-color: #d9f7ff;
+     border-radius: 8px;
+     padding: 4px 8px;
+     display: flex;
+}
+
+.timestamp {
+    background-color: #c8c5c5;
+    flex: inherit;
+    border-radius: 8px;
+}
