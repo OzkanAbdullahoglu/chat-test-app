@@ -15,14 +15,11 @@ export const timeConverter = (timeStamp) => {
     const curMonth = months[dateObj.getMonth()];
     const curYear = dateObj.getFullYear();
     const curMinute = dateObj.getMinutes() < 10 ? `0${dateObj.getMinutes()}` : dateObj.getMinutes();
-    const curHour =
-          dateObj.getHours() > 12 ?
-            dateObj.getHours() - 12 :
-            (dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours());
+    const curHour = (dateObj.getHours() < 10 ? `0${dateObj.getHours()}` : dateObj.getHours());
 
     timeConverter.cache[timeStamp] = {
       date: `${curMonth} ${dayOfMonth},${curYear}`,
-      timed: `${curHour}:${curMinute}`,
+      time: `${curHour}:${curMinute}`,
     };
     return timeConverter.cache[timeStamp];
   }
