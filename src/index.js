@@ -4,10 +4,14 @@ import './assets/fonts/Brown-Regular.ttf';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { store, persistor } from './store';
+import { Provider, connect } from 'react-redux';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
