@@ -6,8 +6,13 @@ export const Wrapper = styled.div`
     props.incomingIcon || props.incomingAvatar || props.sendIcon ? '40px' : '20px'};
   height: ${(props) =>
     props.incomingIcon || props.incomingAvatar || props.sendIcon ? '40px' : '20px'};
-  display: ${(props) => (props.scrollDown && props.appearance ? 'none' : 'flex')};
-  position: ${(props) => (props.sendIcon || props.scrollDown ? 'absolute' : 'relative')};
+  display: flex;
+  opacity:  ${(props) => props.hideButton ? 0 : 1};
+  transition-property: opacity;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+  transition-delay: 0.1s;
+  position: ${(props) => (props.sendIcon ? 'absolute' : props.scrollDown ? 'sticky' : 'relative')};
   border-radius: 50%;
   justify-content: center;
   align-items: center;
@@ -15,9 +20,11 @@ export const Wrapper = styled.div`
   background-color: ${(props) => (props.incomingIcon ? ' #fff' : '#00bcd4')};
   border: ${(props) => (props.incomingIcon ? '1px solid #00bcd4' : 'none')};
   cursor: ${(props) => (props.scrollDown ? 'pointer' : 'auto')};
-  margin: ${(props) => (props.scrollDown ? '0 7px 0 0' : '0 7px 0 10px')};
+  margin: ${(props) => (props.scrollDown ? '0 10px 0 0' : '0 7px 0 10px')};
   right: ${(props) => (props.sendIcon || props.scrollDown ? '0' : 'inherit')};
   bottom: ${(props) => (props.sendIcon ? '10px' : 'inherit')};
+  top: ${(props) => (props.scrollDown ? '625px' : props.sendIcon ? '10px' : '0')};
+  left: ${(props) => (props.scrollDown ? '410px' : 'inherit')};
   box-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.12);
   -webkit-box-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.12);
@@ -32,4 +39,3 @@ export const Wrapper = styled.div`
     outline-offset: -4px;
   }
 `;
-
