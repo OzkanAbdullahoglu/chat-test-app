@@ -1,24 +1,42 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
-import { Provider } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Provider, connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './store';
+import { compose } from 'recompose';
+import { persistor } from './store';
 import './App.css';
 import MessageList from './components/MessageList/MessageList';
 import Header from './components/Header/Header';
-import useCurrentViewDims from './components/ViewPort';
+import Spinner from './components/Spinner/Spinner';
 
-const App = () => {
-  const { height } = useCurrentViewDims();
+import {
+  chatActions,
+  getPendingStatus,
+} from '../src/reducers';
+
+const App = ({ setRequestedData, isPending }) => {
+  useEffect(() => { setRequestedData(); }, []);
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Header incomingIcon={false} incomingAvatar={false} />
-        <Header incomingIcon incomingAvatar />
-        <MessageList windowHeight={height} />
-      </PersistGate>
-    </Provider>
+    <PersistGate loading={null} persistor={persistor}>
+      <Header incomingIcon={false} incomingAvatar={false} />
+      <Header incomingIcon incomingAvatar />
+      {isPending ? (
+        <Spinner />
+      ) : (
+        <MessageList />
+      )}
+
+    </PersistGate>
   );
 };
 
-export default App;
+const mapStateToProps = (store) => ({
+  isPending: getPendingStatus(store),
+});
+
+const withRedux = connect(
+  mapStateToProps,
+  { ...chatActions }
+);
+
+export default compose(withRedux)(App);
