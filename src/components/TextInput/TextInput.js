@@ -23,10 +23,19 @@ class TextInput extends React.Component {
 
     handleSubmit = (event) => {
       const { setAddNewMessages, scrollToBottom } = this.props;
-      setAddNewMessages(this.state.value);
-      scrollToBottom();
-      this.setState({ value: '' });
-      event.preventDefault();
+      if (this.state.value !== '') {
+        setAddNewMessages(this.state.value);
+        scrollToBottom();
+        this.setState({ value: '' });
+        event.preventDefault();
+      }
+    }
+
+    handleKeyPress = (event) => {
+      const textInput = document.getElementById('standard-basic').value;
+      if (event.nativeEvent.keyCode === 13 && textInput === '') {
+        event.preventDefault();
+      }
     }
     render() {
       return (
@@ -38,6 +47,7 @@ class TextInput extends React.Component {
               type="text"
               className="base-input"
               onChange={this.handleChange}
+              onKeyPress={this.handleKeyPress}
               value={this.state.value}
             />
             <Wrapper
