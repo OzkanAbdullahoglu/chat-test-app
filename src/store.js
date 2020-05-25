@@ -14,6 +14,7 @@ const persistConfig = {
   storage,
   timeout: 0,
   stateReconciler: autoMergeLevel2,
+  blacklist: ['message'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
