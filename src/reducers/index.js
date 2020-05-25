@@ -5,22 +5,34 @@ import chatReducer, {
   actions as chatActions,
   types as chatTypes,
 } from './chatReducer';
+import messageReducer, {
+  selectors as messageSelectors,
+  actions as messageActions,
+  types as messageTypes,
+} from './messageReducer';
 
 const rootReducer = combineReducers({
   chat: chatReducer,
+  message: messageReducer,
   version: () => ({
     number: '0.0.1',
   }),
 });
 
-export const getData = (store) =>
-  chatSelectors.getData(store.chat);
+export const getRequestedData = (store) =>
+  chatSelectors.getRequestedData(store.chat);
 export const getUnreadMessages = (store) =>
   chatSelectors.getUnreadMessages(store.chat);
-
+export const getScrollDownVisibilityStatus = (store) =>
+  chatSelectors.getScrollDownVisibilityStatus(store.chat);
+export const getPendingStatus = (store) =>
+  chatSelectors.getPendingStatus(store.chat);
 export const getShowTimeStampBool = (store) => (id) =>
   chatSelectors.getShowTimeStampBool(store.chat, id);
 
-export { chatActions, chatTypes };
+export const getLastMessageRef = (store) =>
+  messageSelectors.getLastMessageRef(store.message);
+
+export { chatActions, chatTypes, messageActions, messageSelectors };
 
 export default rootReducer;
