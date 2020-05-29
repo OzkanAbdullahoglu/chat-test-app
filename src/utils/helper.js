@@ -25,3 +25,10 @@ export const timeConverter = (timeStamp) => {
   }
   return timeConverter.cache[timeStamp];
 };
+
+export const isToday = (timestamp, date) =>{
+  const today = Math.floor(Date.now() / 1000).toString();
+  return timeConverter(today).date === timeConverter(timestamp).date ?
+    'Today' : timeConverter(today).date === timeConverter(timestamp).date - 1 ?
+    'Yesterday' : date;
+};
