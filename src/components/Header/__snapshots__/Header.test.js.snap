@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component renders without crashing 1`] = `
+<div
+  className="container-root"
+>
+  <div
+    className="header-root"
+  >
+    <styled.div
+      aria-label="View User 1 profile"
+      data-test="wrapper"
+      incomingAvatar={false}
+      tabIndex="0"
+    >
+      <styled.svg
+        data-test="icon"
+        incomingAvatar={false}
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+        />
+      </styled.svg>
+    </styled.div>
+    <div
+      className="header-content"
+      tabIndex="0"
+    >
+      <span
+        className="header-text"
+      >
+        User 1 (
+        0
+         new messages)
+      </span>
+    </div>
+  </div>
+</div>
+`;
