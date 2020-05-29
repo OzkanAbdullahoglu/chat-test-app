@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { Wrapper } from '../Wrapper/Wrapper';
 
-export const Icon = styled.svg`
+const SvgIcon = styled.svg`
   fill: currentColor;
   width: ${(props) => (props.sendIcon ? '1.5em' : '2em')};
   height: ${(props) => (props.sendIcon ? '1.5em' : '2em')};
@@ -13,8 +13,10 @@ export const Icon = styled.svg`
   transform: ${(props) => (props.scrollDown ? 'rotate(90deg)' :
     props.incomingIcon ? 'rotate(180deg)' :
       'rotate(0)')};
-  cursor: ${(props) => (props.sendIcon || props.scrollDown ? 'pointer' : 'auto')};
+
    ${Wrapper}:hover & {
     color: #fff
   };
 `;
+
+export default SvgIcon;
