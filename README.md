@@ -35,3 +35,7 @@ A simple chat screen with an initial data, dynamic and a faster render with the 
 * [Redux](https://redux.js.org/) for state management.
 * [Styled-components](https://styled-components.com/) to create resuable and more organised components.
 
+## TODO
+
+* More Unit tests with more coverage,
+* Integrations tests for redux,
