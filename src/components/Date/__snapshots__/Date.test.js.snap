@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Date renders without crashing 1`] = `
+<div
+  className="list-item-date-root"
+>
+  <div
+    aria-label="Date"
+    className="list-item-date-text-primary timestamp"
+  >
+    <span>
+      January 01,2020
+    </span>
+  </div>
+</div>
+`;
