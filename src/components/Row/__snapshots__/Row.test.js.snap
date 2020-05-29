@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Row Component renders without crashing 1`] = `
+<Row
+  index={4}
+  setLastMessageRef={[Function]}
+  showTimeStampBool={[Function]}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+  updatedInitialData={Array []}
+/>
+`;

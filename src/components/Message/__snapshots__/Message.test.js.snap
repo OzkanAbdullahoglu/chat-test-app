@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message Component renders without crashing 1`] = `
+<div
+  className="list-item-root"
+>
+  <div
+    className="list-item-text-root"
+  >
+    <div
+      className="list-item-text-primary"
+    >
+      <span
+        data-test="item-text"
+      >
+        Alice was beginning
+      </span>
+      <span
+        className="time-inline"
+      >
+        02:15
+      </span>
+    </div>
+  </div>
+</div>
+`;

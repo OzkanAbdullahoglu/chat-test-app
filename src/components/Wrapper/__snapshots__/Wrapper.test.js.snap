@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wrapper renders without crashing 1`] = `
+.c0 {
+  width: 40px;
+  height: 40px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 0;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+  position: absolute;
+  border-radius: 50%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #fff;
+  background-color: #fff;
+  border: 1px solid #00bcd4;
+  cursor: pointer;
+  margin: 0 10px 0 0;
+  right: 0;
+  bottom: 10px;
+  top: 625px;
+  left: 410px;
+  box-shadow: 0.1em 0.1em rgba(0,0,0,0.12);
+  -moz-box-shadow: 0.1em 0.1em rgba(0,0,0,0.12);
+  -webkit-box-shadow: 0.1em 0.1em rgba(0,0,0,0.12);
+  -o-box-shadow: 0.1em 0.1em rgba(0,0,0,0.12);
+  z-index: 2;
+}
+
+.c0:hover {
+  background: #00bcd4;
+  color: #fff;
+}
+
+.c0:focus {
+  outline: '1px solid black';
+  outline-offset: -4px;
+}
+
+@media (max-height:1370px) and (max-width:1024px) {
+  .c0 {
+    top: 1250px;
+    left: 390px;
+  }
+}
+
+@media (max-height:1024px) and (max-width:770px) {
+  .c0 {
+    top: 900px;
+    left: 380px;
+  }
+}
+
+@media (max-height:823px) and (max-width:415px) {
+  .c0 {
+    top: 600px;
+    left: 310px;
+  }
+}
+
+@media (max-height:670px) and (max-width:375px) {
+  .c0 {
+    top: 550px;
+    left: 300px;
+  }
+}
+
+@media (max-height:640px) and (max-width:360px) {
+  .c0 {
+    top: 500px;
+    left: 300px;
+  }
+}
+
+@media (max-height:570px) and (max-width:320px) {
+  .c0 {
+    top: 440px;
+    left: 250px;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;

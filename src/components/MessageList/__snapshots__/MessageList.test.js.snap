@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageList Component renders without crashing 1`] = `
+<div
+  className="main-list"
+>
+  <styled.div
+    aria-label="Scroll down to the first unread message"
+    data-test="wrapper"
+    hideButton={false}
+    incomingIcon={true}
+    scrollDown={true}
+    tabIndex="0"
+  >
+    <styled.svg
+      data-test="svg-icon"
+      incomingIcon={true}
+      onClick={[Function]}
+      scrollDown={true}
+      viewBox="0 0 48 48"
+    >
+      <path
+        d="M20 12l-2.83 2.83 9.17 9.17-9.17 9.17 2.83 2.83 12-12z"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      <path
+        d="M0 0h48v48h-48z"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </styled.svg>
+  </styled.div>
+  <List
+    className="list-root"
+    direction="ltr"
+    height={NaN}
+    itemCount={0}
+    itemSize={[Function]}
+    layout="vertical"
+    onItemsRendered={[Function]}
+    overscanCount={5}
+    useIsScrolling={false}
+  >
+    <Component />
+  </List>
+  <Connect(TextInput)
+    scrollToBottom={[Function]}
+    scrollToFirstUnread={[Function]}
+  />
+</div>
+`;
