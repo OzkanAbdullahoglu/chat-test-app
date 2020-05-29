@@ -1,12 +1,12 @@
 /* eslint-disable linebreak-style */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { VariableSizeList } from 'react-window';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import PropTypes from 'prop-types';
 
 import { Wrapper } from '../Wrapper/Wrapper';
-import { Icon } from '../Icon/Icon';
+import SvgIcon from '../Icon/Icon';
 import TextInput from '../TextInput/TextInput';
 import Row from '../Row/Row';
 import './MessageList.css';
@@ -20,7 +20,7 @@ import {
 } from '../../reducers';
 
 const MessageList = ({
-  updatedInitialData,
+  initialData,
   setUpdatedTimeStampData,
   showTimeStampBool,
   unreadMesssages,
@@ -28,18 +28,38 @@ const MessageList = ({
   setToggleScrollDownDisable,
   setToggleScrollDownEnable,
   isScrollDownVisible,
-  lastMessageInList,
-  setDefault,
+  endOfTheList,
+  height,
+  width,
 }) => {
   useEffect(() => { setUpdatedTimeStampData(); }, []);
-  const listRef = React.createRef();
-  const items = updatedInitialData;
+  useEffect(() => {
+    const { firstUnreadId } = unreadMesssages;
+    if (firstUnreadId === 'none') return scrollToTheLastMessage();
+  }, []);
+
+  const listRef = useRef();
+  const fixedHeaderHeight = 120;
+  const fixedTextInputHeight = 60;
+  const fixedHeights = fixedHeaderHeight + fixedTextInputHeight;
+  const items = initialData;
   const defaultItemSize = 45;
   const doubleItemSize = 90;
   const getItemSize = (index) => showTimeStampBool((items[index].id)) ? doubleItemSize : defaultItemSize;
   const scrollToBottom = () => {
-    if (lastMessageInList.current !== undefined) {
-      lastMessageInList.current.scrollIntoView({
+    if (endOfTheList.current === null || endOfTheList.current === undefined) {
+      scrollToTheLastMessage();
+    } else {
+      endOfTheList.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+  };
+
+  const scrollToTheLastMessage = () => {
+    if (listRef.current !== null || listRef.current !== undefined) {
+      listRef.current.scrollToItem(items[items.length - 1].id + 2, {
         behavior: 'smooth',
         block: 'end',
       });
@@ -53,13 +73,13 @@ const MessageList = ({
         behavior: 'smooth',
         block: 'end',
       });
+    } else {
+      scrollToBottom();
     }
   };
 
   const onItemsRendered = (item) => {
     const { firstUnreadId } = unreadMesssages;
-    /* console.log(unreadMesssages);
-    console.log(item, 'RENDER');*/
     const hideScrollButtonToBottom = 10;
     const visibleMessages = item.visibleStopIndex + 1;
     if (visibleMessages >= firstUnreadId) {
@@ -78,58 +98,66 @@ const MessageList = ({
         incomingIcon
         scrollDown
         hideButton={!isScrollDownVisible}
+        data-test="wrapper"
+        aria-label="Scroll down to the first unread message"
+        tabIndex="0"
       >
-        <Icon
+        <SvgIcon
           incomingIcon
           scrollDown
           viewBox="0 0 48 48"
           onClick={handleClick}
+          data-test="svg-icon"
         >
           <path xmlns="http://www.w3.org/2000/svg" d="M20 12l-2.83 2.83 9.17 9.17-9.17 9.17 2.83 2.83 12-12z" />
           <path xmlns="http://www.w3.org/2000/svg" d="M0 0h48v48h-48z" fill="none" />
-        </Icon>
+        </SvgIcon>
       </Wrapper>
       <VariableSizeList
         ref={listRef}
-        height={615}
-        width={480}
+        height={height - fixedHeights}
+        width={width}
         itemSize={getItemSize}
         itemCount={items.length}
         className="list-root"
-        overscanCount={30}
+        overscanCount={5}
         onItemsRendered={onItemsRendered}
       >
         {Row}
       </VariableSizeList>
-      <TextInput scrollToBottom={scrollToBottom} />
+      <TextInput
+        scrollToBottom={scrollToBottom}
+        scrollToFirstUnread={handleClick}
+      />
     </div>
   );
 };
 
 MessageList.propTypes = {
-  updatedInitialData: PropTypes.array,
+  initialData: PropTypes.array,
   showTimeStampBool: PropTypes.func,
   isScrollDownVisible: PropTypes.bool,
   setReadMessages: PropTypes.func,
-  lastMessageInList: PropTypes.string,
+  endOfTheList: PropTypes.string,
   setUpdatedTimeStampData: PropTypes.func,
   setToggleScrollDownDisable: PropTypes.func,
   setToggleScrollDownEnable: PropTypes.func,
   unreadMesssages: PropTypes.object,
+  height: PropTypes.number,
+  width: PropTypes.number,
 };
 
 const mapStateToProps = (store) => ({
-  updatedInitialData: getRequestedData(store),
+  initialData: getRequestedData(store),
   showTimeStampBool: getShowTimeStampBool(store),
   unreadMesssages: getUnreadMessages(store),
   isScrollDownVisible: getScrollDownVisibilityStatus(store),
-  lastMessageInList: getLastMessageRef(store),
+  endOfTheList: getLastMessageRef(store),
 });
 
 const withRedux = connect(
   mapStateToProps,
   { ...chatActions }
 );
-
 
 export default compose(withRedux)(MessageList);

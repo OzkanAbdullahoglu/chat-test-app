@@ -8,12 +8,9 @@ import Message from '../Message/Message';
 import '../Row/Row.css';
 import Date from '../Date/Date';
 import {
-  chatActions,
   messageActions,
   getRequestedData,
   getShowTimeStampBool,
-  getUnreadMessages,
-  getScrollDownVisibilityStatus,
 } from '../../reducers';
 
 const Row = ({
@@ -24,27 +21,26 @@ const Row = ({
   setLastMessageRef }) => {
   const items = updatedInitialData;
   const messagesEnd = useRef();
-
   useEffect(() => {
-    if (index == items.length - 1) {
+    if (index === items.length - 1) {
       setLastMessageRef(messagesEnd);
     }
   }, []
   );
   return (
     showTimeStampBool(items[index].id) ? (
-      <div style={style} className="list-item-container" key={items[index].id}>
+      <div style={style} className={`list-item-container ${index}`} key={items[index].id}>
         <Date pack={items[index]} />
         <Message pack={items[index]} />
-        {index == items.length - 1 ? (
+        {index === items.length - 1 ? (
           <div className="list-end-message list-item-container" ref={messagesEnd}></div>
         ) : null
         }
       </div>
     ) : (
-      <div style={style} className="list-item-container" key={items[index].id}>
+      <div style={style} className={`list-item-container ${index}`} key={items[index].id}>
         <Message pack={items[index]} />
-        {index == items.length - 1 ? (
+        {index === items.length - 1 ? (
           <div className="list-end-message list-item-container" ref={messagesEnd}></div>
         ) : null
         }
@@ -64,13 +60,11 @@ Row.propTypes = {
 const mapStateToProps = (store) => ({
   updatedInitialData: getRequestedData(store),
   showTimeStampBool: getShowTimeStampBool(store),
-  unreadMesssages: getUnreadMessages(store),
-  isScrollDownVisible: getScrollDownVisibilityStatus(store),
 });
 
 const withRedux = connect(
   mapStateToProps,
-  { ...chatActions, ...messageActions },
+  { ...messageActions },
   null,
   { forwardRef: true },
 );

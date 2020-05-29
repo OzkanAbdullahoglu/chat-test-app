@@ -10,7 +10,7 @@ const Message = ({
     <div className="list-item-text-root">
       {pack.direction === 'out' ? (
         <div className="list-item-text-primary message-out">
-          <span>{pack.text}</span>
+          <span data-test="item-text">{pack.text}</span>
           <span
             className="time-inline"
           >{pack.time}</span>
@@ -23,6 +23,7 @@ const Message = ({
                 float: 'right',
                 alignSelf: 'center',
               }}
+              data-test="sent-icon"
             >done</Icon>
           ) : (
             <Icon
@@ -31,18 +32,17 @@ const Message = ({
                 padding: 0,
                 float: 'right',
                 alignSelf: 'center',
-                color: [pack.status === 'read' ? 'blue' : '#777'],
+                color: pack.status === 'read' ? 'blue' : '#777',
               }}
+              data-test="read-icon"
             >
             done_all
             </Icon>
-          )
-
-          }
+          )}
         </div>
       ) : (
         <div className="list-item-text-primary">
-          <span>{pack.text}</span>
+          <span data-test="item-text">{pack.text}</span>
           <span className="time-inline">{pack.time}</span>
         </div>
       )

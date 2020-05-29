@@ -5,10 +5,11 @@ import { compose } from 'recompose';
 import PropTypes from 'prop-types';
 
 import { Wrapper } from '../Wrapper/Wrapper';
-import { Icon } from '../Icon/Icon';
+import SvgIcon from '../Icon/Icon';
 import './TextInput.css';
 import {
   chatActions,
+  getUnreadMessages,
 } from '../../reducers';
 
 class TextInput extends React.Component {
@@ -22,10 +23,18 @@ class TextInput extends React.Component {
     }
 
     handleSubmit = (event) => {
-      const { setAddNewMessages, scrollToBottom } = this.props;
+      const { setAddNewMessages,
+        scrollToBottom,
+        scrollToFirstUnread,
+        unreadMesssages } = this.props;
+      const { firstUnreadId } = unreadMesssages;
       if (this.state.value !== '') {
         setAddNewMessages(this.state.value);
-        scrollToBottom();
+        if (firstUnreadId !== 'none') {
+          scrollToFirstUnread();
+        } else {
+          scrollToBottom();
+        }
         this.setState({ value: '' });
         event.preventDefault();
       }
@@ -52,15 +61,18 @@ class TextInput extends React.Component {
             />
             <Wrapper
               sendIcon
+              aria-label="Click to send a message"
+              tabIndex="0"
             >
-              <Icon
+              <SvgIcon
                 sendIcon
                 viewBox="0 0 24 24"
                 onClick={this.handleSubmit}
+                data-test="svg-icon"
               >
                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                 <path d="M0 0h24v24H0z" fill="none" />
-              </Icon>
+              </SvgIcon>
             </Wrapper>
           </div>
         </form>
@@ -71,9 +83,13 @@ class TextInput extends React.Component {
 TextInput.propTypes = {
   setAddNewMessages: PropTypes.func,
   scrollToBottom: PropTypes.func,
+  scrollToFirstUnread: PropTypes.func,
+  unreadMesssages: PropTypes.object,
 };
 
-const mapStateToProps = (store) => ({});
+const mapStateToProps = (store) => ({
+  unreadMesssages: getUnreadMessages(store),
+});
 
 const withRedux = connect(
   mapStateToProps,
