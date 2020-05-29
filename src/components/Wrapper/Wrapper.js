@@ -67,12 +67,12 @@ export const Wrapper = styled.div`
   }
   @media (max-height: 670px) and (max-width: 375px) {
     top: ${(props) =>
-    props.scrollDown ? '550px' : props.sendIcon ? '10px' : '0'};
+    props.scrollDown ? '500px' : props.sendIcon ? '10px' : '0'};
     left: ${(props) => (props.scrollDown ? '300px' : 'inherit')};
   }
   @media (max-height: 640px) and (max-width: 360px) {
     top: ${(props) =>
-    props.scrollDown ? '500px' : props.sendIcon ? '10px' : '0'};
+    props.scrollDown ? '475px' : props.sendIcon ? '10px' : '0'};
     left: ${(props) => (props.scrollDown ? '300px' : 'inherit')};
   }
 
