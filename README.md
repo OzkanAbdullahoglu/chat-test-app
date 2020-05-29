@@ -15,7 +15,6 @@ The page will reload if you make edits.<br />
 
 Launches the test runner in the interactive watch mode.<br />
 
-
 ## Application Setup
 
 The application was created with create-react-app and requires only npm install and npm start to get it installed and launched. App has to be run in production mode to see If service worker is working properly. App is live and working in this [link.](https://ozkanabdullahoglu.github.io/chat-test-app/)
@@ -34,8 +33,10 @@ A simple chat screen with an initial data, dynamic and a faster render with the 
 * [Jest](https://jestjs.io/en/) for unit testing.
 * [Redux](https://redux.js.org/) for state management.
 * [Styled-components](https://styled-components.com/) to create resuable and more organised components.
+* Fetch the initial data from a static resource
 
 ## TODO
 
 * More Unit tests with more coverage,
 * Integrations tests for redux,
+
