@@ -10,7 +10,6 @@ Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
 ### `npm test`
 
@@ -19,7 +18,7 @@ Launches the test runner in the interactive watch mode.<br />
 
 ## Application Setup
 
-The application was created with create-react-app and requires only npm install and npm start to get it installed and launched. App has to be run in production mode to see If service worker is working properly. App is live and working in this [link.](https://ozkanabdullahoglu.github.io/where-to-eat/)
+The application was created with create-react-app and requires only npm install and npm start to get it installed and launched. App has to be run in production mode to see If service worker is working properly. App is live and working in this [link.](https://ozkanabdullahoglu.github.io/chat-test-app/)
 
 ## User Guide
 
