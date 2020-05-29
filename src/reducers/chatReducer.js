@@ -16,7 +16,7 @@ export const types = {
 };
 
 export const INITIAL_STATE = {
-  requestedData: {},
+  requestedData: [],
   isPending: false,
   error: '',
   scrollDownEnable: true,
@@ -24,6 +24,30 @@ export const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case types.REQUEST_DATA_PENDING:
+      return {
+        ...state,
+        isPending: action.isPending,
+      };
+    case types.REQUEST_DATA_SUCCESS:
+      if (state.requestedData.length > 0) {
+        return {
+          ...state,
+          isPending: false,
+          requestedData: [...state.requestedData],
+        };
+      }
+      return {
+        ...state,
+        isPending: action.isPending,
+        requestedData: action.requestedData,
+      };
+    case types.REQUEST_DATA_FAILED:
+      return {
+        ...state,
+        isPending: action.isPending,
+        error: action.error,
+      };
     case types.CONVERT_TO_DATE:
       return {
         ...state,
@@ -37,30 +61,14 @@ export default (state = INITIAL_STATE, action) => {
     case types.ADD_NEW_MESSAGES:
       return {
         ...state,
-        requestedData: action.updatedMessages,
+        requestedData: [...state.requestedData, action.updatedMessages],
       };
     case types.HIDE_SCROLL_BUTTON:
       return {
         ...state,
         scrollDownEnable: action.scrollDownEnable,
       };
-    case types.REQUEST_DATA_PENDING:
-      return {
-        ...state,
-        isPending: action.isPending,
-      };
-    case types.REQUEST_DATA_SUCCESS:
-      return {
-        ...state,
-        isPending: action.isPending,
-        requestedData: action.requestedData,
-      };
-    case types.REQUEST_DATA_FAILED:
-      return {
-        ...state,
-        isPending: action.isPending,
-        error: action.error,
-      };
+
     case types.DEFAULTS:
       return INITIAL_STATE;
     default:
@@ -69,77 +77,6 @@ export default (state = INITIAL_STATE, action) => {
 };
 
 // ACTIONS
-const setUpdatedTimeStampData = () => (dispatch, getStore) => {
-  const chatStore = getStore().chat;
-  const getInitialData = getRequestedData(chatStore);
-  /* console.log('VOULA', getInitialData);*/
-  const performTimeConversion = [];
-  for (let i = 0, len = getInitialData.length; i < len; i += 1) {
-    const getTimeStamp = getInitialData[i].timestamp;
-    getInitialData[i].date = timeConverter(getTimeStamp).date;
-    getInitialData[i].time = timeConverter(getTimeStamp).time;
-    getInitialData[i].height = 45;
-    performTimeConversion.push(getInitialData[i]);
-  }
-  dispatch({
-    type: types.CONVERT_TO_DATE,
-    convertedData: performTimeConversion,
-  });
-};
-
-const setReadMessages = (messages) => (dispatch, getStore) => {
-  const chatStore = getStore().chat;
-  const getInitialData = getRequestedData(chatStore);
-  const performUpdateReadMessages = [];
-  /* const getChunkData = getInitialData.slice(0, filteredSeenMessages.length);*/
-  const getRestOfTheChunkData = getInitialData.slice(messages, getInitialData.length);
-  for (let i = 0, len = messages; i < len; i += 1) {
-    if (getInitialData[i].direction === 'in') {
-      getInitialData[i].status = 'read';
-    }
-    performUpdateReadMessages.push(getInitialData[i]);
-  }
-  const concatDataBack = performUpdateReadMessages.concat(getRestOfTheChunkData);
-  dispatch({
-    type: types.UPDATE_READ_MESSAGES,
-    readMessages: concatDataBack,
-  });
-};
-
-const setAddNewMessages = (message) => (dispatch, getStore) => {
-  const chatStore = getStore().chat;
-  const getCurrentData = getRequestedData(chatStore);
-  const clonedData = getCurrentData.slice(0);
-  const assignId = getCurrentData[getCurrentData.length - 1].id + 1;
-  const timestamp = Math.floor(Date.now() / 1000).toString();
-  const newMessage = {};
-  newMessage.id = assignId;
-  newMessage.direction = 'out';
-  newMessage.status = 'sent';
-  newMessage.timestamp = timestamp;
-  newMessage.text = message;
-  newMessage.date = timeConverter(timestamp).date;
-  newMessage.time = timeConverter(timestamp).time;
-  clonedData.push(newMessage);
-  dispatch({
-    type: types.ADD_NEW_MESSAGES,
-    updatedMessages: clonedData,
-  });
-};
-
-const setToggleScrollDownDisable = () => (dispatch) => {
-  dispatch({
-    type: types.HIDE_SCROLL_BUTTON,
-    scrollDownEnable: false,
-  });
-};
-const setToggleScrollDownEnable = () => (dispatch) => {
-  dispatch({
-    type: types.HIDE_SCROLL_BUTTON,
-    scrollDownEnable: true,
-  });
-};
-
 const setRequestedData = () => (dispatch) => {
   dispatch({
     type: types.REQUEST_DATA_PENDING,
@@ -160,6 +97,74 @@ const setRequestedData = () => (dispatch) => {
         error,
       }));
 };
+const setUpdatedTimeStampData = () => (dispatch, getStore) => {
+  const chatStore = getStore().chat;
+  const getInitialData = getRequestedData(chatStore);
+  const updatedData = [...getInitialData];
+  const performTimeConversion = [];
+  for (let i = 0, len = updatedData.length; i < len; i += 1) {
+    const getTimeStamp = updatedData[i].timestamp;
+    updatedData[i].date = timeConverter(getTimeStamp).date;
+    updatedData[i].time = timeConverter(getTimeStamp).time;
+    performTimeConversion.push(updatedData[i]);
+  }
+  dispatch({
+    type: types.CONVERT_TO_DATE,
+    convertedData: performTimeConversion,
+  });
+};
+
+const setReadMessages = (messages) => (dispatch, getStore) => {
+  const chatStore = getStore().chat;
+  const getCurrentData = getRequestedData(chatStore);
+  const performUpdateReadMessages = [];
+  /* const getChunkData = getCurrentData.slice(0, filteredSeenMessages.length);*/
+  const getRestOfTheChunkData = getCurrentData.slice(messages, getCurrentData.length);
+  for (let i = 0, len = messages; i < len; i += 1) {
+    if (getCurrentData[i].direction === 'in') {
+      getCurrentData[i].status = 'read';
+    }
+    performUpdateReadMessages.push(getCurrentData[i]);
+  }
+  const concatDataBack = performUpdateReadMessages.concat(getRestOfTheChunkData);
+  dispatch({
+    type: types.UPDATE_READ_MESSAGES,
+    readMessages: concatDataBack,
+  });
+};
+
+const setAddNewMessages = (message) => (dispatch, getStore) => {
+  const chatStore = getStore().chat;
+  const getCurrentData = getRequestedData(chatStore);
+  const assignId = getCurrentData[getCurrentData.length - 1].id + 1;
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const newMessage = {};
+  newMessage.id = assignId;
+  newMessage.direction = 'out';
+  newMessage.status = 'sent';
+  newMessage.timestamp = timestamp;
+  newMessage.text = message;
+  newMessage.date = timeConverter(timestamp).date;
+  newMessage.time = timeConverter(timestamp).time;
+  dispatch({
+    type: types.ADD_NEW_MESSAGES,
+    updatedMessages: newMessage,
+  });
+};
+
+const setToggleScrollDownDisable = () => (dispatch) => {
+  dispatch({
+    type: types.HIDE_SCROLL_BUTTON,
+    scrollDownEnable: false,
+  });
+};
+const setToggleScrollDownEnable = () => (dispatch) => {
+  dispatch({
+    type: types.HIDE_SCROLL_BUTTON,
+    scrollDownEnable: true,
+  });
+};
+
 
 const setDefault = () => ({
   type: types.DEFAULTS,
@@ -179,7 +184,7 @@ const getScrollDownVisibilityStatus = (state) => state.scrollDownEnable;
 const getRequestedData = (state) => state.requestedData;
 const getPendingStatus = (state) => state.isPending;
 const getShowTimeStampBool = (state, id) => {
-  if (id == 1) {
+  if (id === 1) {
     return true;
   }
   if (state.requestedData[id - 2].date !== state.requestedData[id - 1].date) {
