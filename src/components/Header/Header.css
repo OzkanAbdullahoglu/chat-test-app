@@ -18,7 +18,7 @@
     height: 48px;
     display: flex;
     position: fixed;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .incoming-user {
@@ -39,4 +39,3 @@
     font-family: "BrownRegular", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
 }
-
