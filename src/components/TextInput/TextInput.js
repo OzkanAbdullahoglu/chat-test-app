@@ -58,6 +58,7 @@ class TextInput extends React.Component {
               onChange={this.handleChange}
               onKeyPress={this.handleKeyPress}
               value={this.state.value}
+              autoComplete={'off'}
             />
             <Wrapper
               sendIcon
