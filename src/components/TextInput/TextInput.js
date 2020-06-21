@@ -18,7 +18,7 @@ class TextInput extends React.Component {
     this.state = { value: '' };
   }
 
-    handleChange =(event) => {
+    handleChange = (event) => {
       this.setState({ value: event.target.value });
     }
 
