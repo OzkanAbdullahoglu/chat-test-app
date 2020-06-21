@@ -10,7 +10,7 @@ import './App.css';
 import MessageList from '../components/MessageList/MessageList';
 import Header from '../components/Header/Header';
 import Spinner from '../components/Spinner/Spinner';
-import useCurrentViewDims from '../components/ViewPort';
+import useCurrentViewDims from '../utils/helper';
 
 import {
   chatActions,
