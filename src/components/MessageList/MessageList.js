@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import PropTypes from 'prop-types';
 
 import { Wrapper } from '../Wrapper/Wrapper';
-import SvgIcon from '../Icon/Icon';
+import IconContainer from '../IconContainer/IconContainer';
 import TextInput from '../TextInput/TextInput';
 import Row from '../Row/Row';
 import './MessageList.css';
@@ -102,16 +102,13 @@ const MessageList = ({
         aria-label="Scroll down to the first unread message"
         tabIndex="0"
       >
-        <SvgIcon
+        <IconContainer
           incomingIcon
           scrollDown
+          arrow
           viewBox="0 0 48 48"
-          onClick={handleClick}
-          data-test="svg-icon"
-        >
-          <path xmlns="http://www.w3.org/2000/svg" d="M20 12l-2.83 2.83 9.17 9.17-9.17 9.17 2.83 2.83 12-12z" />
-          <path xmlns="http://www.w3.org/2000/svg" d="M0 0h48v48h-48z" fill="none" />
-        </SvgIcon>
+          handleClick={handleClick}
+        />
       </Wrapper>
       <VariableSizeList
         ref={listRef}
