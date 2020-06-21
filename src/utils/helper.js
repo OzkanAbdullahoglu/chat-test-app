@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+import React, { useState, useEffect } from 'react';
 export const timeConverter = (timeStamp) => {
   if (!timeConverter.cache) {
     timeConverter.cache = {};
@@ -28,7 +29,35 @@ export const timeConverter = (timeStamp) => {
 
 export const isToday = (timestamp, date) =>{
   const today = Math.floor(Date.now() / 1000).toString();
+  console.log(today);
   return timeConverter(today).date === timeConverter(timestamp).date ?
     'Today' : timeConverter(today).date === timeConverter(timestamp).date - 1 ?
     'Yesterday' : date;
 };
+
+
+
+
+function getCurrentViewDims() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}
+
+export default function useCurrentViewDims() {
+  const [windowDimensions, setWindowDimensions] = useState(getCurrentViewDims());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getCurrentViewDims());
+    }
+
+    window.addEventListener('scroll', handleResize);
+    return () => window.removeEventListener('scroll', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
