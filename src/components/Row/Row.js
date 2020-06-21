@@ -28,24 +28,16 @@ const Row = ({
   }, []
   );
   return (
-    showTimeStampBool(items[index].id) ? (
-      <div style={style} className={`list-item-container ${index}`} key={items[index].id}>
+    <div style={style} className={`list-item-container ${index}`} key={items[index].id}>
+      {showTimeStampBool(items[index].id) ? (
         <Date pack={items[index]} />
-        <Message pack={items[index]} />
-        {index === items.length - 1 ? (
-          <div className="list-end-message list-item-container" ref={messagesEnd}></div>
-        ) : null
-        }
-      </div>
-    ) : (
-      <div style={style} className={`list-item-container ${index}`} key={items[index].id}>
-        <Message pack={items[index]} />
-        {index === items.length - 1 ? (
-          <div className="list-end-message list-item-container" ref={messagesEnd}></div>
-        ) : null
-        }
-      </div>
-    )
+      ) : null}
+      <Message pack={items[index]} />
+      {index === items.length - 1 ? (
+        <div className="list-end-message list-item-container" ref={messagesEnd} />
+      ) : null
+      }
+    </div>
   );
 };
 
